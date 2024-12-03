@@ -18,9 +18,11 @@ class Day1Test {
         val r = mutableListOf<Int>()
         val regex = Regex("\\s+")
         FileSystem.RESOURCES.readByUtf8Line("day1-input.txt".toPath()) {
-            val parts = it.split(regex)
-            l += parts[0].toInt()
-            r += parts[1].toInt()
+            val parts = it.splitToSequence(regex)
+                .map(String::toInt)
+                .toList()
+            l += parts[0]
+            r += parts[1]
         }
         day1 = Day1(l.asSequence(), r.asSequence())
     }
