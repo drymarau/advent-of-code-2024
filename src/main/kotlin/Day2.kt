@@ -21,7 +21,7 @@ class Day2(private val reports: List<List<Int>>) {
         return true
     }
 
-    private fun lenientSafe(levels: List<Int>) = generateSequence(0) { it + 1 }
+    private fun lenientSafe(levels: List<Int>) = generateSequence(0, Int::inc)
         .take(levels.size)
         .map { levels.filterIndexed { index, _ -> index != it } }
         .any(::safe)
