@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
     testImplementation(kotlin("test"))
     testImplementation("com.squareup.okio:okio:3.9.1")
     testImplementation("com.willowtreeapps.assertk:assertk:0.28.1")

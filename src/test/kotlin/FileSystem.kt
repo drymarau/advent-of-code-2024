@@ -11,3 +11,14 @@ inline fun FileSystem.readByUtf8Line(path: Path, block: (String) -> Unit) {
         }
     }
 }
+
+inline fun FileSystem.readByUtf8LineIndexed(path: Path, block: (Int, String) -> Unit) {
+    source(path).use { source ->
+        source.buffer().use {
+            var i = 0
+            while (true) {
+                block(i++, it.readUtf8Line() ?: break)
+            }
+        }
+    }
+}
