@@ -3,6 +3,7 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isLessThan
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import util.Input
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.seconds
@@ -14,10 +15,10 @@ class Day8Test {
 
     @BeforeTest
     fun setUp() {
-        val lines = buildList {
+        val input = buildList {
             FileSystem.RESOURCES.readByUtf8Line("day8-input.txt".toPath(), ::add)
         }
-        day8 = Day8(lines)
+        day8 = Day8(Input(input))
     }
 
     @Test

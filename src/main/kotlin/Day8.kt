@@ -1,12 +1,14 @@
-class Day8(private val input: List<String>) {
+import util.Distance
+import util.Input
+import util.Position
+
+class Day8(private val input: Input) {
 
     private val map = buildMap {
-        for (row in input.indices) {
-            for (column in input[row].indices) {
-                when (val c = input[row][column]) {
-                    '.' -> continue
-                    else -> this[c] = (this[c] ?: listOf<Position>()) + Position(row, column)
-                }
+        for (position in input.positions) {
+            when (val c = input[position]) {
+                '.' -> continue
+                else -> this[c] = (this[c] ?: listOf<Position>()) + position
             }
         }
     }
@@ -39,18 +41,4 @@ class Day8(private val input: List<String>) {
         }
         return antiNodes.size
     }
-
-    private data class Position(val row: Int, val column: Int) {
-
-        operator fun plus(distance: Distance) = Position(row = row + distance.row, column = column + distance.column)
-
-        operator fun minus(distance: Distance) = Position(row = row - distance.row, column = column - distance.column)
-
-        operator fun minus(other: Position) = Distance(row = row - other.row, column = column - other.column)
-    }
-
-    private data class Distance(val row: Int, val column: Int)
-
-    private operator fun List<String>.contains(position: Position) =
-        position.row in indices && position.column in this[position.row].indices
 }
