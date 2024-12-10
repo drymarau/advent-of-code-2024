@@ -27,9 +27,12 @@ class Day10(private val input: Input) {
             add(position)
             return
         }
-        distances.map(position::plus)
-            .filter(input::contains)
-            .forEach { count(it, current.nextDigit()) }
+        val current = current.nextDigit()
+        for (distance in distances) {
+            val position = position + distance
+            if (position !in input) continue
+            count(position, current)
+        }
     }
 
     private val distances = sequenceOf(Distance.row(1), Distance.row(-1), Distance.column(1), Distance.column(-1))
