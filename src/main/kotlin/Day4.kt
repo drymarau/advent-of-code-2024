@@ -1,56 +1,57 @@
-class Day4(private val lines: List<String>) {
+import util.Distance
+import util.Input
+import util.Position
+
+class Day4(private val input: Input) {
 
     fun part1(): Int {
         var count = 0
-        for (i in lines.indices) {
-            for (j in lines[i].indices) {
-                if (lines[i][j] != 'X') continue
-                count += Direction.entries.count { it.matches(i, j, "XMAS") }
-            }
+        for (position in input.positions) {
+            if (input[position] != 'X') continue
+            count += Direction.entries.count { it.matches(position, "XMAS") }
         }
         return count
     }
 
     fun part2(): Int {
         var count = 0
-        for (i in lines.indices) {
-            for (j in lines[i].indices) {
-                if (!Direction.BottomRight.matches(i, j)) continue
-                if (!Direction.BottomLeft.matches(i, j + 2)) continue
-                count++
-            }
+        for (position in input.positions) {
+            if (!Direction.BottomRight.matches(position)) continue
+            if (!Direction.BottomLeft.matches(position + Distance.column(2))) continue
+            count++
         }
         return count
     }
 
-    private fun Direction.matches(i: Int, j: Int): Boolean {
-        val term = when (lines[i][j]) {
+    private fun Direction.matches(position: Position): Boolean {
+        val term = when (input[position]) {
             'M' -> "MAS"
             'S' -> "SAM"
             else -> return false
         }
-        return matches(i, j, term)
+        return matches(position, term)
     }
 
-    private fun Direction.matches(i: Int, j: Int, term: String): Boolean {
+    private fun Direction.matches(position: Position, term: String): Boolean {
         require(term.isNotEmpty()) { "term is empty." }
-        if (i + vertical * (term.length - 1) !in lines.indices) return false
-        if (j + horizontal * (term.length - 1) !in lines[0].indices) return false
-        return generateSequence(i) { it + vertical }
-            .zip(generateSequence(j) { it + horizontal }) { v, h -> lines[v][h] }
-            .zip(term.asSequence()) { l, r -> l == r }
-            .all { it }
+        if (position + distance * (term.length - 1) !in input) return false
+        for ((i, c) in term.withIndex()) {
+            if (c != input[position + distance * i]) return false
+        }
+        return true
     }
 
-    private enum class Direction(val horizontal: Int, val vertical: Int) {
+    private enum class Direction(val distance: Distance) {
 
-        Left(horizontal = 1, vertical = 0),
-        Top(horizontal = 0, vertical = -1),
-        Right(horizontal = -1, vertical = 0),
-        Bottom(horizontal = 0, vertical = 1),
-        TopLeft(horizontal = -1, vertical = -1),
-        TopRight(horizontal = 1, vertical = -1),
-        BottomLeft(horizontal = -1, vertical = 1),
-        BottomRight(horizontal = 1, vertical = 1),
+        Top(row = -1, column = 0),
+        Left(row = 0, column = -1),
+        Right(row = 0, column = 1),
+        Bottom(row = 1, column = 0),
+        TopLeft(row = -1, column = -1),
+        TopRight(row = -1, column = 1),
+        BottomLeft(row = 1, column = -1),
+        BottomRight(row = 1, column = 1);
+
+        constructor(row: Int, column: Int) : this(Distance(row, column))
     }
 }
