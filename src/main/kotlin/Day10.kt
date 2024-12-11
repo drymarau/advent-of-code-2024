@@ -11,12 +11,10 @@ class Day10(private val input: Input) {
 
     private fun count(block: () -> MutableCollection<Position>): Int {
         var count = 0
-        for (position in input.positions) {
-            if (input[position] == '0') {
-                val collection = block()
-                collection.count(position)
-                count += collection.size
-            }
+        for (position in input.positions.filter { input[it] == '0' }) {
+            val collection = block()
+            collection.count(position)
+            count += collection.size
         }
         return count
     }
