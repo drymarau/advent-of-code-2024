@@ -1,4 +1,6 @@
-import Day11.Stones.*
+import Day11.Stones.Many
+import Day11.Stones.One
+import Day11.Stones.Zero
 import util.length
 import kotlin.math.pow
 

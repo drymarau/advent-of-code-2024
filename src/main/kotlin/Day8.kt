@@ -1,12 +1,14 @@
 import util.Distance
-import util.Input
 import util.Position
+import util.contains
+import util.get
+import util.positions
 
-class Day8(private val input: Input) : Day {
+class Day8(private val lines: List<String>) : Day {
 
     private val map = buildMap {
-        for (position in input.positions) {
-            when (val c = input[position]) {
+        for (position in lines.positions) {
+            when (val c = lines[position]) {
                 '.' -> continue
                 else -> this[c] = (this[c] ?: listOf<Position>()) + position
             }
@@ -21,7 +23,7 @@ class Day8(private val input: Input) : Day {
         val antiNodes = buildSet {
             tailrec fun iterate(position: Position, distance: Distance, operation: Position.(Distance) -> Position) {
                 val antiNode = position.operation(distance)
-                if (antiNode !in input) return
+                if (antiNode !in lines) return
                 this += antiNode
                 if (resonant) iterate(antiNode, distance, operation)
             }

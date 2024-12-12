@@ -1,9 +1,11 @@
 import util.Distance
-import util.Input
 import util.Position
+import util.contains
+import util.get
 import util.nextDigit
+import util.positions
 
-class Day10(private val input: Input) : Day {
+class Day10(private val lines: List<String>) : Day {
 
     override fun part1(): Number = count(::mutableSetOf)
 
@@ -11,7 +13,7 @@ class Day10(private val input: Input) : Day {
 
     private fun count(block: () -> MutableCollection<Position>): Int {
         var count = 0
-        for (position in input.positions.filter { input[it] == '0' }) {
+        for (position in lines.positions.filter { lines[it] == '0' }) {
             val collection = block()
             count(position, block = collection::add)
             count += collection.size
@@ -19,8 +21,8 @@ class Day10(private val input: Input) : Day {
         return count
     }
 
-    private fun count(position: Position, current: Char = input[position], block: (Position) -> Unit) {
-        if (input[position] != current) return
+    private fun count(position: Position, current: Char = lines[position], block: (Position) -> Unit) {
+        if (lines[position] != current) return
         if (current == '9') {
             block(position)
             return
@@ -28,7 +30,7 @@ class Day10(private val input: Input) : Day {
         val current = current.nextDigit()
         for (distance in distances) {
             val position = position + distance
-            if (position !in input) continue
+            if (position !in lines) continue
             count(position, current, block)
         }
     }

@@ -1,13 +1,15 @@
 import util.Distance
-import util.Input
 import util.Position
+import util.contains
+import util.get
+import util.positions
 
-class Day4(private val input: Input) : Day {
+class Day4(private val lines: List<String>) : Day {
 
     override fun part1(): Number {
         var count = 0
-        for (position in input.positions) {
-            if (input[position] != 'X') continue
+        for (position in lines.positions) {
+            if (lines[position] != 'X') continue
             count += Direction.entries.count { it.matches(position, "XMAS") }
         }
         return count
@@ -15,7 +17,7 @@ class Day4(private val input: Input) : Day {
 
     override fun part2(): Number {
         var count = 0
-        for (position in input.positions) {
+        for (position in lines.positions) {
             if (!Direction.BottomRight.matches(position)) continue
             if (!Direction.BottomLeft.matches(position + Distance.column(2))) continue
             count++
@@ -24,7 +26,7 @@ class Day4(private val input: Input) : Day {
     }
 
     private fun Direction.matches(position: Position): Boolean {
-        val term = when (input[position]) {
+        val term = when (lines[position]) {
             'M' -> "MAS"
             'S' -> "SAM"
             else -> return false
@@ -34,9 +36,9 @@ class Day4(private val input: Input) : Day {
 
     private fun Direction.matches(position: Position, term: String): Boolean {
         require(term.isNotEmpty()) { "term is empty." }
-        if (position + distance * (term.length - 1) !in input) return false
+        if (position + distance * (term.length - 1) !in lines) return false
         for ((i, c) in term.withIndex()) {
-            if (c != input[position + distance * i]) return false
+            if (c != lines[position + distance * i]) return false
         }
         return true
     }
