@@ -6,6 +6,8 @@ import kotlin.math.pow
 
 class Day11(private val input: String) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.joinToString())
+
     override fun part1(): Number = blink(25)
 
     override fun part2(): Number = blink(75)

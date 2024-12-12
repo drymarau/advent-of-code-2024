@@ -6,6 +6,8 @@ import util.positions
 
 class Day4(private val lines: List<String>) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.toList())
+
     override fun part1(): Number {
         var count = 0
         for (position in lines.positions) {

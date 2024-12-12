@@ -1,5 +1,7 @@
 class Day3(private val input: String) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.joinToString())
+
     private val regex = Regex("""mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)""")
 
     override fun part1(): Number = regex.findAll(input).sumOf(::mul)

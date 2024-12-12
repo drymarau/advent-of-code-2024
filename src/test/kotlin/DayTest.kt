@@ -1,15 +1,26 @@
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isLessThanOrEqualTo
+import okio.FileSystem
+import okio.Path.Companion.toPath
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.measureTimedValue
 
-abstract class DayTest(private val part1: Number, private val part2: Number) {
+abstract class DayTest(
+    private val path: String,
+    private val part1: Number,
+    private val part2: Number,
+    private val factory: (lines: Sequence<String>) -> Day,
+) {
 
-    abstract fun create(): Day
+    private lateinit var day: Day
 
-    private val day by lazy(LazyThreadSafetyMode.NONE, ::create)
+    @BeforeTest
+    fun setUp() {
+        day = factory(FileSystem.RESOURCES.readByUtf8LineToSequence(path.toPath()))
+    }
 
     @Test
     fun `correctly calculates part 1`() = `correctly calculates part`(part1, day::part1)

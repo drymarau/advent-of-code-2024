@@ -7,6 +7,8 @@ import util.positions
 
 class Day10(private val lines: List<String>) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.toList())
+
     override fun part1(): Number = count(::mutableSetOf)
 
     override fun part2(): Number = count(::mutableListOf)

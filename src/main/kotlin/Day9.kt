@@ -1,5 +1,7 @@
 class Day9(private val input: String) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.joinToString())
+
     override fun part1(): Number {
         val fileSystem = input.generateFileSystem()
         var freeSpaceIndex = fileSystem.indexOfFirst { it == null }

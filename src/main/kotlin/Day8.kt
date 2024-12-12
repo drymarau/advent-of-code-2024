@@ -6,6 +6,8 @@ import util.positions
 
 class Day8(private val lines: List<String>) : Day {
 
+    constructor(lines: Sequence<String>) : this(lines.toList())
+
     private val map = buildMap {
         for (position in lines.positions) {
             when (val c = lines[position]) {

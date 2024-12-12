@@ -1,12 +1,11 @@
-import okio.FileSystem
-import okio.Path.Companion.toPath
-
-class Day5Test : DayTest(part1 = 143, part2 = 123) {
-
-    override fun create(): Day {
+class Day5Test : DayTest(
+    path = "day5-input.txt",
+    part1 = 143,
+    part2 = 123,
+    factory = {
         val rules = mutableMapOf<Int, Set<Int>>()
         val updates = mutableListOf<List<Int>>()
-        FileSystem.RESOURCES.readByUtf8Line("day5-input.txt".toPath()) {
+        it.forEach {
             when {
                 '|' in it -> {
                     val (beforePage, page) = it.splitToSequence('|', limit = 2)
@@ -23,6 +22,6 @@ class Day5Test : DayTest(part1 = 143, part2 = 123) {
                 }
             }
         }
-        return Day5(rules, updates)
-    }
-}
+        Day5(rules, updates)
+    },
+)
