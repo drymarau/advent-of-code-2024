@@ -1,6 +1,6 @@
-class Day9(private val input: String) {
+class Day9(private val input: String) : Day {
 
-    fun part1(): Long {
+    override fun part1(): Number {
         val fileSystem = input.generateFileSystem()
         var freeSpaceIndex = fileSystem.indexOfFirst { it == null }
         var fileIndex = fileSystem.indexOfLast { it != null }
@@ -14,7 +14,7 @@ class Day9(private val input: String) {
         return fileSystem.calculateChecksum()
     }
 
-    fun part2(): Long {
+    override fun part2(): Number {
         val fileSystem = input.generateFileSystem()
         var freeSpaceIndex = fileSystem.indexOfFirst { it == null }
         var fileIndex = fileSystem.indexOfLast { it != null }

@@ -1,13 +1,13 @@
 import kotlin.math.abs
 import kotlin.math.sign
 
-class Day2(private val reports: List<List<Int>>) {
+class Day2(private val reports: List<List<Int>>) : Day {
 
     private val range = 1..3
 
-    fun part1(): Int = reports.count(::safe)
+    override fun part1(): Number = reports.count(::safe)
 
-    fun part2(): Int = reports.count(::lenientSafe)
+    override fun part2(): Number = reports.count(::lenientSafe)
 
     private fun safe(levels: List<Int>): Boolean {
         var sign = 0

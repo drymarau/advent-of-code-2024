@@ -2,9 +2,9 @@ import util.Distance
 import util.Input
 import util.Position
 
-class Day4(private val input: Input) {
+class Day4(private val input: Input) : Day {
 
-    fun part1(): Int {
+    override fun part1(): Number {
         var count = 0
         for (position in input.positions) {
             if (input[position] != 'X') continue
@@ -13,7 +13,7 @@ class Day4(private val input: Input) {
         return count
     }
 
-    fun part2(): Int {
+    override fun part2(): Number {
         var count = 0
         for (position in input.positions) {
             if (!Direction.BottomRight.matches(position)) continue

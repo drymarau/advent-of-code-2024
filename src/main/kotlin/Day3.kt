@@ -1,10 +1,10 @@
-class Day3(private val input: String) {
+class Day3(private val input: String) : Day {
 
     private val regex = Regex("""mul\((\d{1,3}),(\d{1,3})\)|do\(\)|don't\(\)""")
 
-    fun part1(): Int = regex.findAll(input).sumOf(::mul)
+    override fun part1(): Number = regex.findAll(input).sumOf(::mul)
 
-    fun part2(): Int {
+    override fun part2(): Number {
         var apply = true
         return regex.findAll(input)
             .onEach {

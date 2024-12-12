@@ -1,10 +1,10 @@
-class Day5(private val rules: Map<Int, Set<Int>>, private val updates: List<List<Int>>) {
+class Day5(private val rules: Map<Int, Set<Int>>, private val updates: List<List<Int>>) : Day {
 
-    fun part1(): Int = updates.asSequence()
+    override fun part1(): Number = updates.asSequence()
         .filter(::good)
         .sumOf(::middleElement)
 
-    fun part2(): Int = updates.asSequence()
+    override fun part2(): Number = updates.asSequence()
         .filterNot(::good)
         .map { it.sortedWith(comparator) }
         .sumOf(::middleElement)

@@ -2,11 +2,11 @@ import Day11.Stones.*
 import util.length
 import kotlin.math.pow
 
-class Day11(private val input: String) {
+class Day11(private val input: String) : Day {
 
-    fun part1(): Long = blink(25)
+    override fun part1(): Number = blink(25)
 
-    fun part2(): Long = blink(75)
+    override fun part2(): Number = blink(75)
 
     private fun blink(times: Int): Long {
         val cache = mutableMapOf<Stone, Long>()

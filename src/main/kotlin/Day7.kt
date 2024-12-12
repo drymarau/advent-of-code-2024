@@ -6,11 +6,11 @@ import util.head
 import util.tail
 import java.util.concurrent.atomic.AtomicLong
 
-class Day7(private val lines: Sequence<String>) {
+class Day7(private val lines: Sequence<String>) : Day {
 
-    fun part1(): Long = sumOf(Long::plus, Long::times)
+    override fun part1(): Number = sumOf(Long::plus, Long::times)
 
-    fun part2(): Long = sumOf(Long::plus, Long::times, Long::concat)
+    override fun part2(): Number = sumOf(Long::plus, Long::times, Long::concat)
 
     private fun sumOf(vararg operators: Operator): Long {
         val result = AtomicLong()

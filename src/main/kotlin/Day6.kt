@@ -1,19 +1,18 @@
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.atomic.AtomicInteger
 
-class Day6(private val map: List<List<Char>>, private val row: Int, private val column: Int) {
+class Day6(private val map: List<List<Char>>, private val row: Int, private val column: Int) : Day {
 
-    fun part1(): Int {
+    override fun part1(): Number {
         val positions = buildSet<Position> {
             map.simulate { position, _ -> add(position); false }
         }
         return positions.size
     }
 
-    fun part2(): Int {
+    override fun part2(): Number {
         var extraObstacles = AtomicInteger()
         runBlocking(Dispatchers.Default) {
             for (i in map.indices) for (j in map[i].indices) launch {

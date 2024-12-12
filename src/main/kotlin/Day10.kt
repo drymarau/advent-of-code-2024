@@ -3,11 +3,11 @@ import util.Input
 import util.Position
 import util.nextDigit
 
-class Day10(private val input: Input) {
+class Day10(private val input: Input) : Day {
 
-    fun part1(): Int = count(::mutableSetOf)
+    override fun part1(): Number = count(::mutableSetOf)
 
-    fun part2(): Int = count(::mutableListOf)
+    override fun part2(): Number = count(::mutableListOf)
 
     private fun count(block: () -> MutableCollection<Position>): Int {
         var count = 0

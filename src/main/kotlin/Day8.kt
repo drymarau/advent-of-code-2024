@@ -2,7 +2,7 @@ import util.Distance
 import util.Input
 import util.Position
 
-class Day8(private val input: Input) {
+class Day8(private val input: Input) : Day {
 
     private val map = buildMap {
         for (position in input.positions) {
@@ -13,9 +13,9 @@ class Day8(private val input: Input) {
         }
     }
 
-    fun part1(): Int = calculate()
+    override fun part1(): Number = calculate()
 
-    fun part2(): Int = calculate(resonant = true)
+    override fun part2(): Number = calculate(resonant = true)
 
     private fun calculate(resonant: Boolean = false): Int {
         val antiNodes = buildSet {
