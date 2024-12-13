@@ -15,5 +15,10 @@ val List<String>.positions: Sequence<Position>
 
 operator fun List<String>.get(position: Position) = this[position.row][position.column]
 
+fun List<String>.getOrNull(position: Position): Char? {
+    val row = getOrNull(position.row) ?: return null
+    return row.getOrNull(position.column)
+}
+
 operator fun List<String>.contains(position: Position) =
     position.row in indices && position.column in this[position.row].indices
