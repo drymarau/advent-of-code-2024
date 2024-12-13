@@ -35,4 +35,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    systemProperty("junit.jupiter.execution.parallel.enabled", "true")
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
