@@ -1,4 +1,31 @@
-class Day5(private val rules: Map<Int, Set<Int>>, private val updates: List<List<Int>>) : Day {
+class Day5(lines: Sequence<String>) : Day {
+
+    private val rules: Map<Int, Set<Int>>
+    private val updates: List<List<Int>>
+
+    init {
+        val r = mutableMapOf<Int, Set<Int>>()
+        val u = mutableListOf<List<Int>>()
+        for (line in lines) {
+            when {
+                '|' in line -> {
+                    val (beforePage, page) = line.splitToSequence('|', limit = 2)
+                        .map(String::toInt)
+                        .toList()
+                    val set = r.getOrPut(beforePage, ::mutableSetOf)
+                    r.put(beforePage, set + page)
+                }
+
+                ',' in line -> {
+                    u += line.splitToSequence(',')
+                        .map(String::toInt)
+                        .toList()
+                }
+            }
+        }
+        rules = r
+        updates = u
+    }
 
     override fun part1(): Number = updates.asSequence()
         .filter(::good)

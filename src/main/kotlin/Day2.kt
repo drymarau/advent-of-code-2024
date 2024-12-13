@@ -1,9 +1,15 @@
+import util.WhitespaceRegex
 import kotlin.math.abs
 import kotlin.math.sign
 
-class Day2(private val reports: List<List<Int>>) : Day {
+class Day2(lines: Sequence<String>) : Day {
 
     private val range = 1..3
+    private val reports = lines.map {
+        it.splitToSequence(WhitespaceRegex)
+            .map(String::toInt)
+            .toList()
+    }
 
     override fun part1(): Number = reports.count(::safe)
 
