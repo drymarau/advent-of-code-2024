@@ -1,24 +1,38 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.spotless)
 }
 
-group = "com.dzmitryrymarau"
+group = "com.dzmitryrymarau.adventofcode2024"
 version = "0.1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+kotlin {
+    jvmToolchain(21)
+}
+
+spotless {
+    kotlin {
+        ktlint()
+        licenseHeaderFile("LICENSE_HEADER")
+    }
+    kotlinGradle {
+        ktlint()
+    }
+    format("misc") {
+        target(".gitignore", "*.md")
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-    testImplementation(kotlin("test"))
-    testImplementation("com.squareup.okio:okio:3.9.1")
-    testImplementation("com.willowtreeapps.assertk:assertk:0.28.1")
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.assertk)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.okio)
 }
 
 tasks.test {
     useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
 }
