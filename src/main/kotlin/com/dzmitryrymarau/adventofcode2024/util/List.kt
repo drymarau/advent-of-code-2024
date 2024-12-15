@@ -37,3 +37,20 @@ fun List<String>.getOrNull(position: Position): Char? {
 
 operator fun List<String>.contains(position: Position) =
     position.row in indices && position.column in this[position.row].indices
+
+operator fun <E> List<List<E>>.get(position: Position) =
+    this[position.row][position.column]
+
+operator fun <E> List<MutableList<E>>.set(position: Position, value: E): E =
+    this[position.row].set(position.column, value)
+
+fun <E> List<List<E>>.positionOf(predicate: (E) -> Boolean): Position {
+    for (row in indices) {
+        for (column in this[row].indices) {
+            if (predicate(this[row][column])) {
+                return Position(row, column)
+            }
+        }
+    }
+    return Position(-1, -1)
+}

@@ -28,4 +28,30 @@ enum class Direction(val distance: Distance) {
     ;
 
     constructor(row: Int, column: Int) : this(Distance(row, column))
+
+    override fun toString(): String = when (this) {
+        Top -> "↑"
+        Left -> "←"
+        Right -> "→"
+        Bottom -> "↓"
+        TopLeft -> "↖"
+        TopRight -> "↗"
+        BottomLeft -> "↙"
+        BottomRight -> "↘"
+    }
+
+    companion object {
+
+        fun from(c: Char): Direction = when (c) {
+            '↑', '^' -> Top
+            '←', '<' -> Left
+            '→', '>' -> Right
+            '↓', 'v' -> Bottom
+            '↖' -> TopLeft
+            '↗' -> TopRight
+            '↙' -> BottomLeft
+            '↘' -> BottomRight
+            else -> throw IllegalArgumentException("Invalid character '$c'.")
+        }
+    }
 }
