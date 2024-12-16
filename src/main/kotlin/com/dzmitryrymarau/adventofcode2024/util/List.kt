@@ -44,7 +44,7 @@ operator fun <E> List<List<E>>.get(position: Position) =
 operator fun <E> List<MutableList<E>>.set(position: Position, value: E): E =
     this[position.row].set(position.column, value)
 
-fun <E> List<List<E>>.positionOf(predicate: (E) -> Boolean): Position {
+inline fun <E> List<List<E>>.positionOf(predicate: (E) -> Boolean): Position {
     for (row in indices) {
         for (column in this[row].indices) {
             if (predicate(this[row][column])) {
@@ -54,3 +54,17 @@ fun <E> List<List<E>>.positionOf(predicate: (E) -> Boolean): Position {
     }
     return Position(-1, -1)
 }
+
+inline fun <E> List<List<E>>.prettyPrint(block: (E) -> Char) {
+    val s = buildString {
+        for (row in this@prettyPrint.indices) {
+            for (column in this@prettyPrint[row].indices) {
+                append(block(this@prettyPrint[row][column]))
+            }
+            appendLine()
+        }
+    }
+    println(s)
+}
+
+fun List<List<Char>>.prettyPrint() = prettyPrint { it }

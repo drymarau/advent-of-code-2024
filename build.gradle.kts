@@ -38,5 +38,6 @@ tasks.test {
     systemProperty("junit.jupiter.execution.parallel.enabled", "true")
     testLogging {
         events("passed", "skipped", "failed")
+        showStandardStreams = true
     }
 }
